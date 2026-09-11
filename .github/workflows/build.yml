@@ -14,6 +14,7 @@ jobs:
       - uses: android-actions/setup-android@v3
       - name: use debug keystore
         run: sed -i 's/signingConfig = signingConfigs.oeffi_ng/signingConfig = signingConfigs.debug/' androidstudio/oeffi-studio/build.gradle
+      - run: chmod +x androidstudio/gradlew
       - run: ./gradlew :oeffi-studio:assembleNgDebug
         working-directory: androidstudio
       - uses: actions/upload-artifact@v4
