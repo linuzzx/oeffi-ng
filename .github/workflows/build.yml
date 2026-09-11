@@ -3,20 +3,21 @@ on: [push, workflow_dispatch]
 jobs:
   apk:
     runs-on: ubuntu-latest
-    container: debian:trixie-slim
     env:
-      ANDROID_HOME: ${{ github.workspace }}/android-sdk
+      OEFFI_NG_JKS_PASSWORD: dummy
     steps:
-      - name: deps
-        run: |
-          apt-get update
-          apt-get -y install --no-install-recommends \
-            git ca-certificates openjdk-21-jdk-headless gradle sdkmanager
       - uses: actions/checkout@v4
         with: { submodules: recursive }
-      - run: yes | sdkmanager --licenses >/dev/null || true
-      - run: gradle :oeffi:assembleDebug --stacktrace
+      - run: git checkout -B nextgen
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - uses: android-actions/setup-android@v3
+      - name: use debug keystore
+        run: sed -i 's/signingConfig = signingConfigs.oeffi_ng/signingConfig = signingConfigs.debug/' androidstudio/oeffi-studio/build.gradle
+      - run: ./gradlew :oeffi-studio:assembleNgDebug
+        working-directory: androidstudio
       - uses: actions/upload-artifact@v4
         with:
           name: oeffi-ng-debug
-          path: oeffi/build/outputs/apk/debug/*.apk
+          path: androidstudio/oeffi-studio/build/outputs/apk/**/*.apk
+
