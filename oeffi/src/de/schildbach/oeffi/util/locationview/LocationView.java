@@ -21,6 +21,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -30,6 +31,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,6 +112,7 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
     private TextWatcher textChangedListener;
     private int hintRes = 0;
     private String hint;
+    private boolean actionButtonsEnabled = true;
 
     private Location location;
     private LocationType locationType = LocationType.ANY;
@@ -251,6 +254,12 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
     }
 
     private void setup(final Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        actionButtonsEnabled = prefs
+                .getBoolean(Constants.PREFS_KEY_USER_INTERFACE_DIRECTIONS_LOCATION_ACTION_BUTTONS_ENABLED, true);
+        if (prefs.getBoolean(Constants.PREFS_KEY_USER_INTERFACE_DIRECTIONS_LOCATION_FULL_HEIGHT_ENABLED, false))
+            setMinimumHeight(res.getDimensionPixelOffset(R.dimen.directions_form_location_min_height));
+
         inflate(context, R.layout.location_view, this);
         textView = findViewById(R.id.location_view_text);
         textView.setOnItemClickListener((parent, view, position, id) -> {
@@ -657,7 +666,7 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
         modeButton.setImageDrawable(res.getDrawable(drawableId));
 
         if (getText() == null) {
-            typeButtons.setVisibility(View.VISIBLE);
+            typeButtons.setVisibility(actionButtonsEnabled ? View.VISIBLE : View.GONE);
             clearButton.setVisibility(View.GONE);
         } else {
             typeButtons.setVisibility(View.GONE);
