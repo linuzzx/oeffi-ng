@@ -73,7 +73,7 @@
     <string name="user_interface_directions_show_clear_button_enabled_title">Clear button</string>
     <string name="user_interface_directions_show_clear_button_enabled_summary">Always show the button to clear the input</string>
     <string name="user_interface_directions_location_action_buttons_enabled_title">Action icons in input fields</string>
-    <string name="user_interface_directions_location_action_buttons_enabled_summary">Show the icon row (current location, map, contacts, favourites, search, menu) inside the from/to fields. Turn off for wider input fields; all actions stay available via the menu button of the field (change requires restart of the app)</string>
+    <string name="user_interface_directions_location_action_buttons_enabled_summary">Show the action icons (current location, map, contacts, favourites, search) inside the from/to fields. Turn off for wider input fields; the menu button stays and offers all actions (change requires restart of the app)</string>
     <string name="user_interface_directions_location_full_height_enabled_title">Full height input fields</string>
     <string name="user_interface_directions_location_full_height_enabled_summary">Use the classic minimum row height for the from/to fields instead of the compact one (change requires restart of the app)</string>
 

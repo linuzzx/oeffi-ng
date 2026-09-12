@@ -150,11 +150,11 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
     public void setStationsOnly(final boolean stationsOnly) {
         this.stationsOnly = stationsOnly;
         if (mapButton != null)
-            ViewUtils.setVisibility(mapButton, !stationsOnly);
+            ViewUtils.setVisibility(mapButton, actionButtonsEnabled && !stationsOnly);
         if (currentLocationButton != null)
-            ViewUtils.setVisibility(currentLocationButton, !stationsOnly);
+            ViewUtils.setVisibility(currentLocationButton, actionButtonsEnabled && !stationsOnly);
         if (contactButton != null)
-            ViewUtils.setVisibility(contactButton, !stationsOnly);
+            ViewUtils.setVisibility(contactButton, actionButtonsEnabled && !stationsOnly);
     }
 
     public boolean isStationsOnly() {
@@ -305,6 +305,13 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
         favoriteStationButton = findViewById(R.id.location_view_favorite_station_button);
         mapButton = findViewById(R.id.location_view_map_button);
         currentLocationButton = findViewById(R.id.location_view_current_location_button);
+        if (!actionButtonsEnabled) {
+            ViewUtils.setVisibility(currentLocationButton, false);
+            ViewUtils.setVisibility(mapButton, false);
+            ViewUtils.setVisibility(contactButton, false);
+            ViewUtils.setVisibility(favoriteStationButton, false);
+            ViewUtils.setVisibility(alternateSearchButton, false);
+        }
         menuButton.setOnClickListener((view) -> {
             final PopupMenu popupMenu = new PopupMenu(getContext(), view);
             popupMenu.inflate(R.menu.directions_location_context);
@@ -526,7 +533,8 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
 
     public void setListener(final Listener listener) {
         this.listener = listener;
-        ViewUtils.setVisibility(mapButton, listener != null && !stationsOnly && listener.getMapPointSelectionProvider() != null);
+        ViewUtils.setVisibility(mapButton, actionButtonsEnabled && listener != null && !stationsOnly
+                && listener.getMapPointSelectionProvider() != null);
         setAdapter(new AutoCompleteLocationAdapter(this, listener.getNetwork(), listener.getUsage(), stationsOnly));
     }
 
@@ -666,7 +674,7 @@ public class LocationView extends LinearLayout implements LocationHelper.Callbac
         modeButton.setImageDrawable(res.getDrawable(drawableId));
 
         if (getText() == null) {
-            typeButtons.setVisibility(actionButtonsEnabled ? View.VISIBLE : View.GONE);
+            typeButtons.setVisibility(View.VISIBLE);
             clearButton.setVisibility(View.GONE);
         } else {
             typeButtons.setVisibility(View.GONE);

@@ -68,7 +68,7 @@
     <string name="user_interface_directions_show_clear_button_enabled_title">Lösch-Button</string>
     <string name="user_interface_directions_show_clear_button_enabled_summary">Zeige immer den Button zum Löschen der Eingabe</string>
     <string name="user_interface_directions_location_action_buttons_enabled_title">Aktionssymbole in Eingabefeldern</string>
-    <string name="user_interface_directions_location_action_buttons_enabled_summary">Zeige die Symbolleiste (Standort, Karte, Kontakte, Favoriten, Suche, Menü) innerhalb der Von-/Nach-Felder. Ausschalten für breitere Eingabefelder; alle Aktionen bleiben über den Menü-Button des Feldes erreichbar (Änderung erfordert Neustart der App)</string>
+    <string name="user_interface_directions_location_action_buttons_enabled_summary">Zeige die Aktionssymbole (Standort, Karte, Kontakte, Favoriten, Suche) innerhalb der Von-/Nach-Felder. Ausschalten für breitere Eingabefelder; der Menü-Button bleibt und bietet alle Aktionen (Änderung erfordert Neustart der App)</string>
     <string name="user_interface_directions_location_full_height_enabled_title">Eingabefelder in voller Höhe</string>
     <string name="user_interface_directions_location_full_height_enabled_summary">Verwende die klassische Mindesthöhe der Von-/Nach-Zeilen statt der kompakten (Änderung erfordert Neustart der App)</string>
 
